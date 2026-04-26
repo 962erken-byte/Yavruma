@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senin İçin...</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0b0b0b;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        #start-screen {
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        #rose-icon {
+            font-size: 80px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        #main-content {
+            display: none;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-shadow: 0 0 20px #ff4d4d;
+            animation: fadeIn 3s ease-in-out;
+        }
+
+        .sub-text {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            opacity: 0.8;
+        }
+
+        /* Gül Yaprakları Animasyonu */
+        .leaf {
+            position: absolute;
+            color: #ff4d4d;
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="start-screen" onclick="startSurprise()">
+        <div id="rose-icon">🌹</div>
+        <p>Dokunmanı bekliyor...</p>
+    </div>
+
+    <div id="main-content">
+        <h1>Küçücüğüm her şeyim,<br>İyi ki varsın balım.</h1>
+        <div class="sub-text">Seni çok seviyorum...</div>
+        
+        <iframe id="music" width="0" height="0" src="" frameborder="0" allow="autoplay"></iframe>
+    </div>
+
+    <script>
+        function startSurprise() {
+            // Başlangıç ekranını gizle, ana içeriği göster
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+
+            // Müziği başlat (Yalın - Küçücüğüm)
+            const music = document.getElementById('music');
+            music.src = "https://www.youtube.com/embed/9T4P1EpS9iA?autoplay=1";
+
+            // Gül yapraklarını oluştur
+            setInterval(createLeaf, 300);
+        }
+
+        function createLeaf() {
+            const leaf = document.createElement('div');
+            leaf.classList.add('leaf');
+            leaf.innerHTML = '🌸'; // Gül yaprağı ikonu
+            leaf.style.left = Math.random() * 100 + 'vw';
+            leaf.style.animationDuration = Math.random() * 3 + 2 + 's';
+            leaf.style.opacity = Math.random();
+            leaf.style.fontSize = Math.random() * 20 + 10 + 'px';
+            
+            document.body.appendChild(leaf);
+
+            setTimeout(() => {
+                leaf.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
